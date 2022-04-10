@@ -1,0 +1,76 @@
+{
+    "manifestVersion": 1,
+    "id": "k8s4u-azdev-service-hook",
+    "version": "0.0.1",
+    "name": "Argo CD service hook extension for Azure DevOps",
+    "description": "Argo CD service hook extension for Azure DevOps.",
+    "publisher": "k8s4u",
+    "public": true,
+    "icons": {
+        "default": "images/argocd-logo.png"
+    },
+    "scopes": [],
+    "files": [
+        {
+            "path": "images",
+            "addressable": true
+        }
+    ],
+    "content": {
+        "details": {
+            "path": "README.md"
+        }
+    },
+    "categories": [
+        "Azure Repos"
+    ],
+    "galleryFlags": [
+        "Public"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "k8s4u-azdev-service-hook-consumer",
+            "type": "ms.vss-servicehooks.consumer",
+            "targets": [
+                "ms.vss-servicehooks.consumers"
+            ],
+            "properties": {
+                "id": "k8s4u-azdev-service-hook-consumer",
+                "name": "Argo CD",
+                "description": "Argo CD",
+                "informationUrl": "https://aka.ms/vsoextensions",
+                "inputDescriptors": [
+                    {
+                        "id": "url",
+                        "isRequired": true,
+                        "name": "URL",
+                        "description": "URL to post event payload to",
+                        "inputMode": "textbox"
+                    }
+                ],
+                "actions": [
+                    {
+                        "id": "performAction",
+                        "name": "Perform action",
+                        "description": "Posts a standard event payload",
+                        "supportedEventTypes": [
+                            "git.push"
+                        ],
+                        "publishEvent": {
+                            "url": "{{{url}}}",
+                            "httpHeaders": "X-GitHub-Event:true",
+                            "messagesToSend": "all",
+                            "detailedMessagesToSend": "all",
+                            "resourceDetailsToSend": "all"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
