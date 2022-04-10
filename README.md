@@ -1,2 +1,2 @@
-# argocd-azdev-service-hook
-Argo CD service hook extension for Azure DevOps
+# About
+Argo CD service hook extension for Azure DevOps.

@@ -1,11 +1,11 @@
 {
     "manifestVersion": 1,
     "id": "argocd-service-hook",
-    "version": "0.0.1",
-    "name": "Argo CD service hook extension for Azure DevOps",
-    "description": "Argo CD service hook extension for Azure DevOps.",
-    "publisher": "k8s4u",
-    "public": true,
+    "version": "0.0.8",
+    "name": "Argo CD Webhook",
+    "description": "Trigger Argo CD sync with webhook",
+    "publisher": "OlliJanatuinen",
+    "public": false,
     "icons": {
         "default": "images/argocd-logo.png"
     },
@@ -24,9 +24,6 @@
     "categories": [
         "Azure Repos"
     ],
-    "galleryFlags": [
-        "Public"
-    ],
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
@@ -34,39 +31,39 @@
     ],
     "contributions": [
         {
-            "id": "k8s4u-azdev-service-hook-consumer",
+            "id": "argocd-service-hook-type",
             "type": "ms.vss-servicehooks.consumer",
             "targets": [
                 "ms.vss-servicehooks.consumers"
             ],
             "properties": {
-                "id": "k8s4u-azdev-service-hook-consumer",
+                "id": "argocd-service-hook-consumer",
                 "name": "Argo CD",
-                "description": "Argo CD",
-                "informationUrl": "https://aka.ms/vsoextensions",
+                "description": "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.",
+                "informationUrl": "https://github.com/k8s4u/argocd-azdev-service-hook",
                 "inputDescriptors": [
                     {
                         "id": "url",
                         "isRequired": true,
-                        "name": "URL",
-                        "description": "URL to post event payload to",
+                        "name": "Argo CD Base URL",
+                        "description": "Argo CD URL without /api/webook",
                         "inputMode": "textbox"
                     }
                 ],
                 "actions": [
                     {
-                        "id": "performAction",
-                        "name": "Perform action",
-                        "description": "Posts a standard event payload",
+                        "id": "argocd-service-hook-consumer.sync",
+                        "name": "Trigger sync",
+                        "description": "Trigger Argo CD sync action",
                         "supportedEventTypes": [
                             "git.push"
                         ],
                         "publishEvent": {
-                            "url": "{{{url}}}",
-                            "httpHeaders": "X-GitHub-Event:true",
-                            "messagesToSend": "all",
-                            "detailedMessagesToSend": "all",
-                            "resourceDetailsToSend": "all"
+                            "url": "{{{url}}}/api/webhook",
+                            "httpHeaders": "X-Azure-DevOps-Event:true",
+                            "messagesToSend": "none",
+                            "detailedMessagesToSend": "none",
+                            "resourceDetailsToSend": "minimal"
                         }
                     }
                 ]
