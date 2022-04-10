@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "argocd-service-hook",
-    "version": "0.0.19",
+    "version": "0.1.3",
     "name": "Argo CD Webhook",
     "description": "Trigger Argo CD sync with webhook",
     "publisher": "OlliJanatuinen",
@@ -37,32 +37,31 @@
                 "informationUrl": "https://github.com/k8s4u/argocd-azdev-service-hook",
                 "inputDescriptors": [
                     {
-                        "id": "url",
-                        "isRequired": true,
+                        "id": "argocdUrl",
                         "name": "Argo CD Base URL",
                         "description": "Argo CD URL without /api/webook",
-                        "inputMode": "textbox"
+                        "inputMode": "textbox",
+                        "validation" : {
+                            "isRequired": true,
+                            "dataType": "uri"
+                        }
                     }
                 ],
                 "actions": [
                     {
-                        "id": "ms.vss-servicehooks.consumers.argocd",
-                        "consumerId": "argocd",
+                        "id": "argocd",
+                        "type": "ms.vss-servicehooks.action",
                         "name": "Trigger sync",
                         "description": "Trigger Argo CD sync action",
                         "supportedEventTypes": [
                             "git.push"
                         ],
                         "publishEvent": {
-                            "url": "{{{url}}}/api/webhook",
+                            "url": "{{{argocdUrl}}}/api/webhook",
                             "httpHeaders": "X-Azure-DevOps-Event:true",
-                            "resourceDetailsToSend": "all",
-                            "transforms": [
-                                {
-                                    "eventType": "git.push",
-                                    "templateAssetType": "transform.hbs"
-                                }
-                            ]
+                            "messagesToSend": "none",
+                            "detailedMessagesToSend": "none",
+                            "resourceDetailsToSend": "minimal"
                         }
                     }
                 ]
