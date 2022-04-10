@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "argocd-service-hook",
-    "version": "0.0.8",
+    "version": "0.0.18",
     "name": "Argo CD Webhook",
     "description": "Trigger Argo CD sync with webhook",
     "publisher": "OlliJanatuinen",
@@ -31,13 +31,13 @@
     ],
     "contributions": [
         {
-            "id": "argocd-service-hook-type",
+            "id": "argocd",
             "type": "ms.vss-servicehooks.consumer",
             "targets": [
                 "ms.vss-servicehooks.consumers"
             ],
             "properties": {
-                "id": "argocd-service-hook-consumer",
+                "id": "argocd",
                 "name": "Argo CD",
                 "description": "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes.",
                 "informationUrl": "https://github.com/k8s4u/argocd-azdev-service-hook",
@@ -52,7 +52,8 @@
                 ],
                 "actions": [
                     {
-                        "id": "argocd-service-hook-consumer.sync",
+                        "id": "ms.vss-servicehooks.consumers.argocd",
+                        "consumerId": "argocd",
                         "name": "Trigger sync",
                         "description": "Trigger Argo CD sync action",
                         "supportedEventTypes": [
@@ -61,9 +62,13 @@
                         "publishEvent": {
                             "url": "{{{url}}}/api/webhook",
                             "httpHeaders": "X-Azure-DevOps-Event:true",
-                            "messagesToSend": "none",
-                            "detailedMessagesToSend": "none",
-                            "resourceDetailsToSend": "minimal"
+                            "resourceDetailsToSend": "all",
+                            "transforms": [
+                                {
+                                    "eventType": "git.push",
+                                    "templateAssetType": "transform.hbs"
+                                }
+                            ]
                         }
                     }
                 ]
