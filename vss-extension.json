@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "id": "k8s4u-azdev-service-hook",
+    "id": "argocd-service-hook",
     "version": "0.0.1",
     "name": "Argo CD service hook extension for Azure DevOps",
     "description": "Argo CD service hook extension for Azure DevOps.",
