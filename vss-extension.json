@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "argocd-service-hook",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "name": "Argo CD Webhook",
     "description": "Trigger Argo CD sync with webhook",
     "publisher": "OlliJanatuinen",
@@ -10,12 +10,6 @@
         "default": "images/argocd-logo.png"
     },
     "scopes": [],
-    "files": [
-        {
-            "path": "images",
-            "addressable": true
-        }
-    ],
     "content": {
         "details": {
             "path": "README.md"
@@ -73,6 +67,17 @@
                     }
                 ]
             }
+        }
+    ],
+    "files": [
+        {
+            "path": "node_modules/vss-web-extension-sdk/lib",
+            "addressable": true,
+            "packagePath": "lib"
+        },
+        {
+            "path": "images",
+            "addressable": true
         }
     ]
 }

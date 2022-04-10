@@ -1,0 +1,23 @@
+{
+  "name": "argocd-azdev-service-hook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k8s4u/argocd-azdev-service-hook.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/k8s4u/argocd-azdev-service-hook/issues"
+  },
+  "homepage": "https://github.com/k8s4u/argocd-azdev-service-hook#readme",
+  "dependencies": {
+    "vss-web-extension-sdk": "^5.141.0"
+  }
+}
